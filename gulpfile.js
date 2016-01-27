@@ -1,7 +1,11 @@
 'use strict';
 
 var gulp = require('gulp'),
-	concat = require('gulp-concat');
+	concat = require('gulp-concat'),
+	uglify = require('gulp-uglify'),
+	rename = require('gulp-rename'),
+	start = require('gulp-start'),
+	play = require('gulp-play-assets');
 
 gulp.task('concatScripts', function() {
 	gulp.src([
@@ -12,6 +16,23 @@ gulp.task('concatScripts', function() {
 	.pipe(gulp.dest('js'));
 });
 
-gulp.task('default', ['hello'], function() {
+gulp.task('minifyScripts', function() {
+	gulp.src('js/app.js')
+		.pipe(uglify())
+		.pipe(rename('app.min.js'))
+		.pipe(gulp.dest('js'));
+});
+
+gulp.task('build', ['concatScripts', 'minifyScripts'], function() {
+	return gulp.src(['js/app.min.js','index.html','README.md'])
+				.pipe(gulp.dest('dist'));
+});
+
+gulp.task('play',['build'],function() {
+	gulp.src('app')
+	.pipe(play);
+});
+
+gulp.task('default', ['build'], function() {
 	console.log('This is default task.');
 });
