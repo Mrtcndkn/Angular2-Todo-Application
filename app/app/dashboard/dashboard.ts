@@ -1,8 +1,8 @@
 import {Component} from 'angular2/core';
-import {TaskService} from './task.service';
-import {Task} from './task';
+import {TaskService} from '../../task/task.service';
+import {Task} from '../../task/task';
 import {OnInit} from 'angular2/core';
-import {TaskDisplayComponent} from './taskdisplay.component';
+import {TaskDisplayComponent} from '../../task/taskdisplay.component';
 
 @Component({
 	selector: 'manage',

@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {RouterOutlet, RouteConfig, RouterLink} from 'angular2/router';
-import {Dashboard} from './dashboard';
-import {Manage} from './manage';
+import {Dashboard} from '../app/dashboard/dashboard';
+import {Manage} from '../app/manage/manage';
 
 @RouteConfig([
     { path: "/", as: 'Dashboard', component: Dashboard },
