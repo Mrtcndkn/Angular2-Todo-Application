@@ -6,7 +6,9 @@ var gulp = require('gulp'),
 	rename = require('gulp-rename'),
 	start = require('gulp-start'),
 	play = require('gulp-play-assets'),
-	del = require('del');
+	del = require('del'),
+	liveServer = require('live-server'),
+	config = require('./gulp.config')();
 
 gulp.task('concatScripts', function() {
 	gulp.src([
@@ -24,7 +26,7 @@ gulp.task('minifyScripts',['concatScripts'], function() {
 		.pipe(gulp.dest('js'));
 });
 
-gulp.task('build', ['concatScripts', 'minifyScripts'], function() {
+gulp.task('build', ['minifyScripts', 'concatScripts'], function() {
 	return gulp.src(['js/app.min.js','index.html','README.md'])
 				.pipe(gulp.dest('dist'));
 });
@@ -33,6 +35,14 @@ gulp.task('clean', function() {
 	del(['dist','js/app*.js*']);
 });
 
-gulp.task('default', ['build'], function() {
-	console.log('This is default task.');
+/* Start live server dev mode */
+gulp.task('serve-dev', ['concatScripts', 'minifyScripts'], function () {  
+    liveServer.start(config.liveServer.dev);
 });
+
+/* Start live server production mode */
+gulp.task('serve-build', ['build'], function () {
+    liveServer.start(config.liveServer.prod);
+});
+
+gulp.task('start', ['serve-dev','build']);
