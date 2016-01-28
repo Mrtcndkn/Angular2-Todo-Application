@@ -20,6 +20,7 @@
   "devDependencies": {
     "bootstrap": "^3.3.6",
     "concurrently": "^1.0.0",
+    "del": "^2.2.0",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-load-plugins": "^1.2.0",

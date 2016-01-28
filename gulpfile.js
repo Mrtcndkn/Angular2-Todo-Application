@@ -5,7 +5,8 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	rename = require('gulp-rename'),
 	start = require('gulp-start'),
-	play = require('gulp-play-assets');
+	play = require('gulp-play-assets'),
+	del = require('del');
 
 gulp.task('concatScripts', function() {
 	gulp.src([
@@ -16,7 +17,7 @@ gulp.task('concatScripts', function() {
 	.pipe(gulp.dest('js'));
 });
 
-gulp.task('minifyScripts', function() {
+gulp.task('minifyScripts',['concatScripts'], function() {
 	gulp.src('js/app.js')
 		.pipe(uglify())
 		.pipe(rename('app.min.js'))
@@ -28,9 +29,8 @@ gulp.task('build', ['concatScripts', 'minifyScripts'], function() {
 				.pipe(gulp.dest('dist'));
 });
 
-gulp.task('play',['build'],function() {
-	gulp.src('app')
-	.pipe(play);
+gulp.task('clean', function() {
+	del(['dist','js/app*.js*']);
 });
 
 gulp.task('default', ['build'], function() {
