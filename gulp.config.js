@@ -9,7 +9,7 @@ module.exports = function () {
     var liveServer = {
         dev: {
             port: 3000,
-            host: "127.0.0.1",
+            host: "localhost",
             open: '/',
             file: "index.html",
             wait: 1000
